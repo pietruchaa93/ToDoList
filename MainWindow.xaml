@@ -10,9 +10,9 @@
     <Grid Background="#FFCAC9C9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width ="*" />
-            <ColumnDefinition Width ="*" /> 
-        </Grid.ColumnDefinitions> 
-        
+            <ColumnDefinition Width ="*" />
+        </Grid.ColumnDefinitions>
+
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Grid.ColumnSpan="2">
             <TextBlock Text="These are your tasks" Margin="10,10,10,10" FontSize="16" FontWeight="Bold"></TextBlock>
             <ScrollViewer Width ="300" Height="300" Margin="5,5,5,5">
@@ -29,6 +29,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width ="*" />
                     <ColumnDefinition Width ="*" />
+                    <ColumnDefinition Width ="*" />
                 </Grid.ColumnDefinitions>
                 <Button Command ="{Binding AddNewTaskCommand}" Style="{StaticResource DefaultStyle}" Content="Add" RenderTransformOrigin="0.5,0.5">
                     <Button.RenderTransform>
@@ -43,7 +44,8 @@
                         <SolidColorBrush Color="#FF7D2798"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="1" Command ="{Binding DeleteCompletedTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Remove" Background="#FFAF1818"></Button>
+                <Button Grid.Column="1" Command ="{Binding EditTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Edit" Background="CadetBlue"></Button>
+                <Button Grid.Column="2" Command ="{Binding DeleteCompletedTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Remove" Background="OrangeRed"></Button>
             </Grid>
             <GroupBox Header="New Task">
                 <StackPanel Orientation="Vertical" Margin="10,10,10,10">
@@ -52,14 +54,15 @@
                     <TextBlock Text="Description" />
                     <TextBox Width="300" Text="{Binding NewWorkTaskDescription, Mode=TwoWay}" TextWrapping="Wrap" MinLines="2" />
                     <TextBlock Text="Execution date" />
-                    <DatePicker SelectedDate="{Binding NewDateSelected, Mode=TwoWay}" DisplayDate="07/22/2022" TabIndex="2147483645" ></DatePicker>
+                    <DatePicker SelectedDate="{Binding NewDateSelected, Mode=TwoWay}" TabIndex="2147483645" ></DatePicker>
                 </StackPanel>
             </GroupBox>
-       
+
         </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Calendar SelectedDate="{Binding SelectedDate}" SelectionMode="SingleDate"/>
-            <Button Grid.Column="1" Command ="{Binding ShowTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Show tasks" Background="Orange"></Button>
+        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10">
+            <Calendar SelectedDate="{Binding SelectedDate}" SelectionMode="SingleDate" Height="208" Width="233"/>
+            <Button Grid.Column="1" Command ="{Binding ShowTasksCommand}" Style="{StaticResource DefaultStyle}" Margin ="15" Content="Show tasks" Background="Orange"/>
+            <Button Command ="{Binding ShowAllTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Show all tasks" Background="BlueViolet"/>
         </StackPanel>
     </Grid>
 </Window>

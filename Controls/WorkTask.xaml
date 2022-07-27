@@ -14,7 +14,6 @@
             <StackPanel>
                 <TextBlock Text="{Binding Title}"></TextBlock>
                 <TextBlock Text="{Binding Description}"></TextBlock>
-                <TextBlock Text="{Binding CreatedDate}"></TextBlock>
                 <TextBlock Text="{Binding dateSelected}"></TextBlock>
             </StackPanel>
         </StackPanel>
