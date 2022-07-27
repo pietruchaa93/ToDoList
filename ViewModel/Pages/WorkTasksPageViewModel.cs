@@ -19,25 +19,37 @@ namespace ToDoList
 
         public ObservableCollection<WorkTaskViewModel> FilteredWorkTaskList
         {
-            get => new ObservableCollection<WorkTaskViewModel>
-                (from WorkTaskViewModel in WorkTaskList where (WorkTaskViewModel.dateSelected.ToString() == SelectedDate.ToString()) select WorkTaskViewModel);
+           
+            get 
+            
+            { if (conditionFiltered == true) 
+              return new ObservableCollection<WorkTaskViewModel>
+                  (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() == SelectedDate.ToString() select WorkTaskViewModel); 
+            else
+              return new ObservableCollection<WorkTaskViewModel>
+                  (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() != SelectedDate.ToString() select WorkTaskViewModel);
+            }
+
+
         }
 
         public string NewWorkTaskTitle { get; set; }
         public string NewWorkTaskDescription { get; set; }
-        public DateTime? NewDateSelected { get; set; } = DateTime.Now;
+        public DateTime? NewDateSelected { get; set; } 
         public DateTime? SelectedDate { get; set; } = DateTime.Now;
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteCompletedTasksCommand { get; set; }
         public ICommand EditTasksCommand { get; set; }
         public ICommand ShowTasksCommand { get; set; }
         public ICommand ShowAllTasksCommand { get; set; }
+        public bool conditionFiltered { get; set; } = false;
 
         public WorkTasksPageViewModel()
         {
 
             NewWorkTaskTitle = string.Empty;
-            NewWorkTaskDescription = string.Empty;  
+            NewWorkTaskDescription = string.Empty;
+        
 
             AddNewTaskCommand = new RelayCommand(AddNewTask);
             DeleteCompletedTasksCommand = new RelayCommand(DeleteCompletedTasks);
@@ -56,11 +68,12 @@ namespace ToDoList
                 });
             }
             OnPropertyChanged(nameof(FilteredWorkTaskList));
+            OnPropertyChanged(nameof(NewDateSelected));
         }
 
         private void AddNewTask()
         {
-           if ((NewWorkTaskTitle != string.Empty) && (NewWorkTaskDescription != string.Empty))
+           if ((NewWorkTaskTitle != string.Empty) && (NewWorkTaskDescription != string.Empty) && (NewDateSelected != null))
             {
                 var newTask = new WorkTaskViewModel
                 {
@@ -68,7 +81,7 @@ namespace ToDoList
                     Description = NewWorkTaskDescription,
                     dateSelected = NewDateSelected,
 
-            };
+                };
 
                 WorkTaskList.Add(newTask);
 
@@ -84,11 +97,13 @@ namespace ToDoList
 
                 NewWorkTaskTitle = string.Empty;
                 NewWorkTaskDescription = string.Empty;
+                NewDateSelected = null;
 
                 OnPropertyChanged(nameof(NewWorkTaskTitle));
                 OnPropertyChanged(nameof(NewWorkTaskDescription));
                 OnPropertyChanged(nameof(NewDateSelected));
                 OnPropertyChanged(nameof(FilteredWorkTaskList));
+                
             }
             
             
@@ -115,39 +130,23 @@ namespace ToDoList
 
         private void ShowTasks()
         {
+            conditionFiltered = true;
+           
             OnPropertyChanged(nameof(FilteredWorkTaskList));
         }
 
         public void ShowAllTasks()
         {
-            SelectedDate = null;
-
+            conditionFiltered = false;
+            SelectedDate = DateTime.MinValue;
             OnPropertyChanged(nameof(FilteredWorkTaskList));
 
         }
 
         private void EditTasks()
         {
-            var editTasks = WorkTaskList.Where(x => x.IsCompleted).ToList();
-
-            foreach (var task in editTasks)
-            {
-               
-                var foundEntity = DatabaseLocator.Database.WorkTasks.FirstOrDefault(x => x.Id == task.Id);
-                if (foundEntity != null)
-                {
-                    var editTask = new WorkTaskViewModel
-                    {
-                        dateSelected = NewDateSelected,
-                    };
 
 
-                    DatabaseLocator.Database.WorkTasks.Update(foundEntity);
-                }
-            }
-            OnPropertyChanged(nameof(FilteredWorkTaskList));
-
-            DatabaseLocator.Database.SaveChanges();
         }
 
 

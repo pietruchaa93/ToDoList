@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoList"
         mc:Ignorable="d"
-        Title="ToDoList" Height="600" Width="650">
+        Title="ToDoList" Height="600" Width="650" ResizeMode="NoResize">
 
     <Grid Background="#FFCAC9C9">
         <Grid.ColumnDefinitions>
@@ -57,12 +57,19 @@
                     <DatePicker SelectedDate="{Binding NewDateSelected, Mode=TwoWay}" TabIndex="2147483645" ></DatePicker>
                 </StackPanel>
             </GroupBox>
-
+            
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10">
             <Calendar SelectedDate="{Binding SelectedDate}" SelectionMode="SingleDate" Height="208" Width="233"/>
-            <Button Grid.Column="1" Command ="{Binding ShowTasksCommand}" Style="{StaticResource DefaultStyle}" Margin ="15" Content="Show tasks" Background="Orange"/>
-            <Button Command ="{Binding ShowAllTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Show all tasks" Background="BlueViolet"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="*" />
+                    <ColumnDefinition Width ="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Command ="{Binding ShowTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Show date" Background="Orange"/>
+                <Button Command ="{Binding ShowAllTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Show all tasks" Background="BlueViolet"/>
+            </Grid>
+          
         </StackPanel>
     </Grid>
 </Window>
