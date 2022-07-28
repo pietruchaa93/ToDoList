@@ -18,10 +18,8 @@ namespace ToDoList
         public static ObservableCollection<WorkTaskViewModel> WorkTaskList { get; set; } = new ObservableCollection<WorkTaskViewModel>();
 
         public ObservableCollection<WorkTaskViewModel> FilteredWorkTaskList
-        {
-           
-            get 
-            
+        {       
+            get         
             { if (conditionFiltered == true) 
               return new ObservableCollection<WorkTaskViewModel>
                   (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() == SelectedDate.ToString() select WorkTaskViewModel); 
@@ -29,8 +27,6 @@ namespace ToDoList
               return new ObservableCollection<WorkTaskViewModel>
                   (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() != SelectedDate.ToString() select WorkTaskViewModel);
             }
-
-
         }
 
         public string NewWorkTaskTitle { get; set; }
@@ -104,9 +100,7 @@ namespace ToDoList
                 OnPropertyChanged(nameof(NewDateSelected));
                 OnPropertyChanged(nameof(FilteredWorkTaskList));
                 
-            }
-            
-            
+            }               
         }
 
         private void DeleteCompletedTasks()
@@ -140,17 +134,29 @@ namespace ToDoList
             conditionFiltered = false;
             SelectedDate = DateTime.MinValue;
             OnPropertyChanged(nameof(FilteredWorkTaskList));
-
         }
 
         private void EditTasks()
         {
 
+            var editTasks = WorkTaskList.Where(x => x.IsCompleted).ToList();
+                        
+            foreach (var task in editTasks)
+            {
+
+                var foundEntity = DatabaseLocator.Database.WorkTasks.FirstOrDefault(x => x.Id == task.Id);
+                if (foundEntity != null)
+                {
+                    DatabaseLocator.Database.WorkTasks.Update(foundEntity);
+                }
+
+            }
+
+            OnPropertyChanged(nameof(FilteredWorkTaskList));
+
+            DatabaseLocator.Database.SaveChanges();
 
         }
-
-
-
 
 
     }
