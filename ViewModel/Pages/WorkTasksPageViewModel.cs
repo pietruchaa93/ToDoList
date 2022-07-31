@@ -31,8 +31,8 @@ namespace ToDoList
 
         public string NewWorkTaskTitle { get; set; }
         public string NewWorkTaskDescription { get; set; }
-        public DateTime? NewDateSelected { get; set; } 
-        public DateTime? SelectedDate { get; set; } = DateTime.Now;
+        public DateTime? NewDateSelected { get; set; }
+        public DateTime? SelectedDate { get; set; } = DateTime.MinValue;
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteCompletedTasksCommand { get; set; }
         public ICommand EditTasksCommand { get; set; }
@@ -43,10 +43,9 @@ namespace ToDoList
         public WorkTasksPageViewModel()
         {
 
-            NewWorkTaskTitle = string.Empty;
-            NewWorkTaskDescription = string.Empty;
+           NewWorkTaskTitle = string.Empty;
+           NewWorkTaskDescription = string.Empty;
         
-
             AddNewTaskCommand = new RelayCommand(AddNewTask);
             DeleteCompletedTasksCommand = new RelayCommand(DeleteCompletedTasks);
             EditTasksCommand = new RelayCommand(EditTasks);
@@ -139,22 +138,27 @@ namespace ToDoList
         private void EditTasks()
         {
 
-            var editTasks = WorkTaskList.Where(x => x.IsCompleted).ToList();
-                        
+            var editTasks = WorkTaskList.Where(x => x.IsCompleted);
+
             foreach (var task in editTasks)
             {
 
                 var foundEntity = DatabaseLocator.Database.WorkTasks.FirstOrDefault(x => x.Id == task.Id);
                 if (foundEntity != null)
                 {
-                    DatabaseLocator.Database.WorkTasks.Update(foundEntity);
+                    foundEntity.Id = foundEntity.Id;
+                    foundEntity.Title = NewWorkTaskTitle;
+                    foundEntity.Description = NewWorkTaskDescription;
+                    foundEntity.dateSelected = NewDateSelected;
+                 
+                    //DatabaseLocator.Database.WorkTasks.Update(foundEntity);
                 }
-
+                
             }
 
-            OnPropertyChanged(nameof(FilteredWorkTaskList));
+           OnPropertyChanged(nameof(FilteredWorkTaskList));
 
-            DatabaseLocator.Database.SaveChanges();
+           DatabaseLocator.Database.SaveChanges();
 
         }
 

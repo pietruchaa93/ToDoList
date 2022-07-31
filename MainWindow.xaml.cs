@@ -27,5 +27,9 @@ namespace ToDoList
             DataContext = new WorkTasksPageViewModel();
         }
 
+        private void CheckBox_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }

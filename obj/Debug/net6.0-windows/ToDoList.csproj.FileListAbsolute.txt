@@ -2,7 +2,6 @@ C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-w
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\Controls\WorkTask.g.cs
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\App.g.cs
-C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\ToDoList_MarkupCompile.cache
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\ToDoList_MarkupCompile.lref
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\Controls\WorkTask.baml
@@ -58,3 +57,4 @@ C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\bin\Debug\net6.0-w
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\bin\Debug\net6.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\bin\Debug\net6.0-windows\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\ToDoList.csproj.CopyComplete
+C:\Users\damian.pietruszyns.a\Desktop\C#\LastVersion\ToDoList\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
