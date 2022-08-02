@@ -52,7 +52,7 @@
                     <ColumnDefinition Width ="*" />
                     <ColumnDefinition Width ="*" />
                 </Grid.ColumnDefinitions>
-                <Button Command ="{Binding AddNewTaskCommand}" Style="{StaticResource DefaultStyle}" Content="Add" RenderTransformOrigin="0.5,0.5" Background="DarkViolet">
+                <Button Command ="{Binding AddNewTaskCommand}" Style="{StaticResource DefaultStyle}" Content="Add new" RenderTransformOrigin="0.5,0.5" Background="DarkViolet">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -63,7 +63,7 @@
                     </Button.RenderTransform>
                 </Button>
                 <Button Grid.Column="1" Command ="{Binding EditTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Edit" Background="CadetBlue"></Button>
-                <Button Grid.Column="2" Command ="{Binding DeleteCompletedTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Remove" Background="OrangeRed"></Button>
+                <Button Grid.Column="2" Command ="{Binding DeleteCompletedTasksCommand}" Style="{StaticResource DefaultStyle}" Content="Done" Background="OrangeRed"></Button>
             </Grid>
             <GroupBox Header="Details">
                 <StackPanel Orientation="Vertical" Margin="10,10,10,10">

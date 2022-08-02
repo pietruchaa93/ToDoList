@@ -12,9 +12,10 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\damian.pietruszyns.a\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\damian.pietruszyns.a\\.nuget\\packages",
-      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\pietr\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\pietr\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
     ],
     "configProperties": {
       "System.Reflection.NullabilityInfoContext.IsSupported": true,

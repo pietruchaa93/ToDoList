@@ -25,14 +25,14 @@ namespace ToDoList
                   (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() == SelectedDate.ToString() select WorkTaskViewModel); 
             else
               return new ObservableCollection<WorkTaskViewModel>
-                  (from WorkTaskViewModel in WorkTaskList where WorkTaskViewModel.dateSelected.ToString() != SelectedDate.ToString() select WorkTaskViewModel);
+                  (from WorkTaskViewModel in WorkTaskList select WorkTaskViewModel);
             }
         }
 
         public string NewWorkTaskTitle { get; set; }
         public string NewWorkTaskDescription { get; set; }
         public DateTime? NewDateSelected { get; set; }
-        public DateTime? SelectedDate { get; set; } = DateTime.MinValue;
+        public DateTime? SelectedDate { get; set; } = null;
         public ICommand AddNewTaskCommand { get; set; }
         public ICommand DeleteCompletedTasksCommand { get; set; }
         public ICommand EditTasksCommand { get; set; }
@@ -131,7 +131,6 @@ namespace ToDoList
         public void ShowAllTasks()
         {
             conditionFiltered = false;
-            SelectedDate = DateTime.MinValue;
             OnPropertyChanged(nameof(FilteredWorkTaskList));
         }
 
@@ -146,22 +145,32 @@ namespace ToDoList
                 var foundEntity = DatabaseLocator.Database.WorkTasks.FirstOrDefault(x => x.Id == task.Id);
                 if (foundEntity != null)
                 {
-                    foundEntity.Id = foundEntity.Id;
-                    foundEntity.Title = NewWorkTaskTitle;
-                    foundEntity.Description = NewWorkTaskDescription;
-                    foundEntity.dateSelected = NewDateSelected;
-                 
-                    //DatabaseLocator.Database.WorkTasks.Update(foundEntity);
+
+                    if (NewWorkTaskTitle != string.Empty) foundEntity.Title = NewWorkTaskTitle;
+                    if (NewWorkTaskDescription != string.Empty) foundEntity.Description = NewWorkTaskDescription;
+                    if (NewDateSelected != null) foundEntity.dateSelected = NewDateSelected;
+
+                    DatabaseLocator.Database.WorkTasks.Update(foundEntity);
                 }
-                
+
+                if (NewWorkTaskTitle != string.Empty) task.Title = NewWorkTaskTitle;
+                if (NewWorkTaskDescription != string.Empty) task.Description = NewWorkTaskDescription;
+                if (NewDateSelected != null) task.dateSelected = NewDateSelected;
+
             }
 
-           OnPropertyChanged(nameof(FilteredWorkTaskList));
+            DatabaseLocator.Database.SaveChanges();
 
-           DatabaseLocator.Database.SaveChanges();
+            NewWorkTaskTitle = string.Empty;
+            NewWorkTaskDescription = string.Empty;
+            NewDateSelected = null;
+
+            OnPropertyChanged(nameof(NewWorkTaskTitle));
+            OnPropertyChanged(nameof(NewWorkTaskDescription));
+            OnPropertyChanged(nameof(NewDateSelected));
+            OnPropertyChanged(nameof(FilteredWorkTaskList));
 
         }
-
 
     }
 }
